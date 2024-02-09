@@ -2,10 +2,23 @@ import TodosCard from "./TodosCard";
 import AddTodoModal from "./AddTodoModal";
 import TodoFilter from "./TodoFilter";
 import { useAppSelector } from "@/redux/hooks";
+import { useGetTodoQuery } from "@/redux/api/api";
 
 const TodosContainer = () => {
   const { todos } = useAppSelector((state) => state.todos);
-  console.log(todos);
+  const { data, isLoading, isError } = useGetTodoQuery(undefined);
+
+  console.log(
+    "Is Data  => ",
+    data,
+    "loading => ",
+    isLoading,
+    "Error => ",
+    isError
+  );
+  if (isLoading) {
+    return <p>loading...........................</p>;
+  }
   return (
     <div>
       <div className="flex justify-between items-center mb-10 mx-1">
